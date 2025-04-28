@@ -2,8 +2,10 @@ package com.example.inputcontrol
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // Tambahkan Log bahwa aplikasi sudah berjalan
+        Log.d("MainActivity", "Aplikasi dimulai dengan sukses.")
+
         // Inisialisasi tombol dan text view
         btnDatePicker = findViewById(R.id.btnDatePicker)
         btnAlert = findViewById(R.id.btnAlert)
@@ -42,10 +47,17 @@ class MainActivity : AppCompatActivity() {
 
             val datePickerDialog = DatePickerDialog(this,
                 { _, selectedYear, selectedMonth, selectedDay ->
-                    txtTanggal.text = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                    val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                    txtTanggal.text = selectedDate
+
+                    // Tambahkan Log saat tanggal dipilih
+                    Log.d("MainActivity", "Tanggal dipilih: $selectedDate")
                 }, year, month, day)
 
             datePickerDialog.show()
+
+            // Tambahkan Toast saat membuka DatePicker
+            Toast.makeText(this, "Membuka Date Picker", Toast.LENGTH_SHORT).show()
         }
 
         // Event klik untuk Alert Dialog
@@ -55,6 +67,12 @@ class MainActivity : AppCompatActivity() {
                 .setMessage("Ini adalah contoh Alert Dialog!")
                 .setPositiveButton("OK", null)
                 .show()
+
+            // Tambahkan Toast saat Alert ditekan
+            Toast.makeText(this, "Tombol Alert ditekan", Toast.LENGTH_SHORT).show()
+
+            // Tambahkan Log saat Alert ditampilkan
+            Log.i("MainActivity", "Alert Dialog ditampilkan.")
         }
     }
 }
